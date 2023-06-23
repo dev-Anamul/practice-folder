@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quadratic Curve</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const context = canvas.getContext("2d");
+
+      function drawQuadraticCurve(
+        startX,
+        startY,
+        controlX,
+        controlY,
+        endX,
+        endY
+      ) {
+        context.beginPath();
+        context.moveTo(startX, startY);
+        context.quadraticCurveTo(controlX, controlY, endX, endY);
+        context.stroke();
+      }
+
+      // Usage example
+      const startX = 50;
+      const startY = 200;
+      const controlX = 200;
+      const controlY = 50;
+      const endX = 350;
+      const endY = 200;
+
+      // Usage example
+      const startX2 = 50;
+      const startY2 = 200;
+      const controlX2 = -200;
+      const controlY2 = -50;
+      const endX2 = 350;
+      const endY2 = 200;
+      drawQuadraticCurve(startX, startY, controlX, controlY, endX, endY);
+      drawQuadraticCurve(startX2, startY2, controlX2, controlY2, endX2, endY2);
+    </script>
+  </body>
+</html>

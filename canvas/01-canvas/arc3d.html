@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3D Arc</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const context = canvas.getContext("2d");
+
+      function draw3DArc(
+        centerX,
+        centerY,
+        radius,
+        startAngle,
+        endAngle,
+        height,
+        segments
+      ) {
+        const angleStep = (endAngle - startAngle) / segments;
+        const heightStep = height / segments;
+        let currentAngle = startAngle;
+        let currentHeight = 0;
+
+        for (let i = 0; i < segments; i++) {
+          const nextAngle = currentAngle + angleStep;
+          const nextHeight = currentHeight + heightStep;
+
+          const startX = centerX + radius * Math.cos(currentAngle);
+          const startY = centerY + radius * Math.sin(currentAngle);
+          const endX = centerX + radius * Math.cos(nextAngle);
+          const endY = centerY + radius * Math.sin(nextAngle);
+
+          const controlX =
+            centerX + radius * Math.cos((currentAngle + nextAngle) / 2);
+          const controlY =
+            centerY +
+            radius * Math.sin((currentAngle + nextAngle) / 2) -
+            currentHeight;
+
+          context.beginPath();
+          context.moveTo(startX, startY);
+          context.quadraticCurveTo(controlX, controlY, endX, endY);
+          context.stroke();
+
+          currentAngle = nextAngle;
+          currentHeight = nextHeight;
+        }
+      }
+
+      // Usage example
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = 100;
+      const startAngle = Math.PI / 4;
+      const endAngle = (Math.PI * 3) / 4;
+      const height = 30;
+      const segments = 10;
+
+      draw3DArc(
+        centerX,
+        centerY,
+        radius,
+        startAngle,
+        endAngle,
+        height,
+        segments
+      );
+    </script>
+  </body>
+</html>
